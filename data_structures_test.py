@@ -5,11 +5,11 @@ import heapdict
 
 # Stack
 from data_structures import Stack
-def test_stack_init():
+def test_stack_init(): # 1p
     stack = Stack()
     assert stack.head is None
 
-def test_stack_push():
+def test_stack_push(): # 2p
     stack = Stack()
     stack.push('A')
     stack.push('B')
@@ -18,13 +18,13 @@ def test_stack_push():
     assert stack.head.next.data == 'B'
     assert stack.head.next.next.data == 'A'
 
-def test_stack_peek():
+def test_stack_peek(): # 1p
     stack = Stack()
     stack.push('A')
     stack.push('B')
     assert stack.peek() == 'B'
 
-def test_stack_pop():
+def test_stack_pop(): # 2p
     stack = Stack()
     stack.push('A')
     stack.push('B')
@@ -33,7 +33,7 @@ def test_stack_pop():
     assert stack.pop() == 'B'
     assert stack.pop() == 'A'
 
-def test_stack_pop_empty():
+def test_stack_pop_empty(): # 1p
     stack = Stack()
     with pytest.raises(IndexError):
         stack.pop()
@@ -41,12 +41,12 @@ def test_stack_pop_empty():
 
 # Queue
 from data_structures import Queue
-def test_queue_init():
+def test_queue_init(): # 1p
     queue = Queue()
     assert queue.head is None
     assert queue.tail is None
 
-def test_enqueue():
+def test_enqueue(): # 2p
     queue = Queue()
     queue.enqueue('A')
     queue.enqueue('B')
@@ -54,13 +54,13 @@ def test_enqueue():
     assert queue.head.data == 'A'
     assert queue.tail.data == 'C'
 
-def test_peek():
+def test_peek(): # 1p
     queue = Queue()
     queue.enqueue('A')
     queue.enqueue('B')
     assert queue.peek() == 'A'
 
-def test_dequeue():
+def test_dequeue(): # 2p
     queue = Queue()
     queue.enqueue('A')
     queue.enqueue('B')
@@ -69,7 +69,7 @@ def test_dequeue():
     assert queue.dequeue() == 'B'
     assert queue.dequeue() == 'C'
 
-def test_dequeue_empty():
+def test_dequeue_empty(): # 1p
     queue1 = Queue()
     with pytest.raises(IndexError):
         queue1.dequeue()
@@ -82,29 +82,29 @@ def test_dequeue_empty():
 
 # Priority queue
 from data_structures import EmergencyRoomQueue
-def test_erqueue_init():
+def test_erqueue_init(): # 1p
     erqueue = EmergencyRoomQueue()
     assert isinstance(erqueue.queue,heapdict.heapdict)
 
-def test_add_patient():
+def test_add_patient(): # 1p
     erqueue = EmergencyRoomQueue()
     erqueue.add_patient_with_priority('Bob',3)
     assert erqueue.queue['Bob'] == 3
 
-def test_update_patient_priority():
+def test_update_patient_priority(): # 1p
     erqueue = EmergencyRoomQueue()
     erqueue.add_patient_with_priority('Bob',3)
     erqueue.update_patient_priority('Bob',2)
     assert erqueue.queue['Bob'] == 2
 
-def test_get_patient():
+def test_get_patient(): # 1p
     erqueue = EmergencyRoomQueue()
     erqueue.add_patient_with_priority('Bob',3)
     erqueue.add_patient_with_priority('Shabana',2)
     erqueue.add_patient_with_priority('Thu',5)
     assert erqueue.get_next_patient() == 'Shabana'
 
-def test_add_update_get_patients():
+def test_add_update_get_patients(): # 1p
     erqueue = EmergencyRoomQueue()
     erqueue.add_patient_with_priority('Bob',3)
     erqueue.add_patient_with_priority('Shabana',2)
@@ -115,7 +115,7 @@ def test_add_update_get_patients():
     assert erqueue.get_next_patient() == 'Thu'
     assert erqueue.get_next_patient() == 'Shabana'
 
-def test_get_from_empty_queue():
+def test_get_from_empty_queue(): # 1p
     erqueue = EmergencyRoomQueue()
     with pytest.raises(IndexError):
         erqueue.get_next_patient()
@@ -123,11 +123,11 @@ def test_get_from_empty_queue():
 
 # Indexed linked list
 from data_structures import IndexList
-def test_indexlist_init():
+def test_indexlist_init(): # 1p
     il = IndexList()
     assert il.head is None
 
-def test_indexlist_insert():
+def test_indexlist_insert(): # 3p
     il = IndexList()
     il.insert('A',0)
     il.insert('B',0)
@@ -138,7 +138,7 @@ def test_indexlist_insert():
     assert il.head.next.next.data == 'A'
     assert il.head.next.next.next.data == 'D'
 
-def test_indexlist_peek():
+def test_indexlist_peek(): # 2p
     il = IndexList()
     il.insert('A',0)
     il.insert('B',0)
@@ -151,16 +151,18 @@ def test_indexlist_peek():
     with pytest.raises(IndexError):
         il.peek(4)
 
-def test_indexlist_pop():
+def test_indexlist_pop(): # 3p
     il = IndexList()
     il.insert('A',0)
     il.insert('B',1)
     il.insert('C',2)
+    il.insert('D',3)
     assert il.pop(2) == 'C'
+    assert il.pop(2) == 'D'
     assert il.pop(0) == 'A'
     assert il.head.data == 'B'
 
-def test_indexlist_popempty():
+def test_indexlist_popempty(): # 2p
     il = IndexList()
     with pytest.raises(IndexError):
         il.pop(0)
