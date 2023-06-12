@@ -46,7 +46,7 @@ def test_queue_init(): # 1p
     assert queue.head is None
     assert queue.tail is None
 
-def test_enqueue(): # 2p
+def test_queue_enqueue(): # 2p
     queue = Queue()
     queue.enqueue('A')
     queue.enqueue('B')
@@ -54,13 +54,13 @@ def test_enqueue(): # 2p
     assert queue.head.data == 'A'
     assert queue.tail.data == 'C'
 
-def test_peek(): # 1p
+def test_queue_peek(): # 1p
     queue = Queue()
     queue.enqueue('A')
     queue.enqueue('B')
     assert queue.peek() == 'A'
 
-def test_dequeue(): # 2p
+def test_queue_dequeue(): # 2p
     queue = Queue()
     queue.enqueue('A')
     queue.enqueue('B')
@@ -69,7 +69,7 @@ def test_dequeue(): # 2p
     assert queue.dequeue() == 'B'
     assert queue.dequeue() == 'C'
 
-def test_dequeue_empty(): # 1p
+def test_queue_dequeue_empty(): # 1p
     queue1 = Queue()
     with pytest.raises(IndexError):
         queue1.dequeue()
