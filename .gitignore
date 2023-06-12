@@ -161,4 +161,4 @@ cython_debug/
 
 # UiT DTE-2602
 # Don't change test files
-# data_structures_test.py
+data_structures_test.py
