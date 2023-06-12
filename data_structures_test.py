@@ -86,25 +86,25 @@ def test_erqueue_init(): # 1p
     erqueue = EmergencyRoomQueue()
     assert isinstance(erqueue.queue,heapdict.heapdict)
 
-def test_add_patient(): # 1p
+def test_erqueue_add_patient(): # 1p
     erqueue = EmergencyRoomQueue()
     erqueue.add_patient_with_priority('Bob',3)
     assert erqueue.queue['Bob'] == 3
 
-def test_update_patient_priority(): # 1p
+def test_erqueue_update_patient_priority(): # 1p
     erqueue = EmergencyRoomQueue()
     erqueue.add_patient_with_priority('Bob',3)
     erqueue.update_patient_priority('Bob',2)
     assert erqueue.queue['Bob'] == 2
 
-def test_get_patient(): # 1p
+def test_erqueue_get_patient(): # 1p
     erqueue = EmergencyRoomQueue()
     erqueue.add_patient_with_priority('Bob',3)
     erqueue.add_patient_with_priority('Shabana',2)
     erqueue.add_patient_with_priority('Thu',5)
     assert erqueue.get_next_patient() == 'Shabana'
 
-def test_add_update_get_patients(): # 1p
+def test_erqueue_add_update_get_patients(): # 1p
     erqueue = EmergencyRoomQueue()
     erqueue.add_patient_with_priority('Bob',3)
     erqueue.add_patient_with_priority('Shabana',2)
@@ -115,7 +115,7 @@ def test_add_update_get_patients(): # 1p
     assert erqueue.get_next_patient() == 'Thu'
     assert erqueue.get_next_patient() == 'Shabana'
 
-def test_get_from_empty_queue(): # 1p
+def test_erqueue_get_from_empty_queue(): # 1p
     erqueue = EmergencyRoomQueue()
     with pytest.raises(IndexError):
         erqueue.get_next_patient()
