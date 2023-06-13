@@ -1,6 +1,8 @@
 # Imports
 import pytest
 import heapdict
+import warnings
+import binarytree
 
 # Node class
 class Node:
@@ -119,3 +121,36 @@ class IndexList:
             current = current.next
             index += 1
         return list_string
+    
+
+class BinarySearchTree:
+    def __init__(self,root=None):
+        """ Initialize binary search tree
+
+        # Inputs:
+        root:    (optional) An instance of binarytree.Node which is the root of the tree
+
+        # Notes:
+        If a root is supplied, validate that the tree meets the requirements
+        of a binary search tree (see property binarytree.Node.is_bst ). If not, raise ValueError.
+        """
+        pass 
+    
+    def insert(self, value):
+        """ Insert a new node into the tree (binarytree.Node object)
+
+        # Inputs:
+        value:    Value of new node
+
+        # Notes:
+        The method should issue a warning if the value already exists in the tree.
+        See https://docs.python.org/3/library/warnings.html#warnings.warn
+        In the case of duplicate values, leave the tree unchanged.
+        """
+        pass
+
+    def __str__(self):
+        """ Return string representation of tree (helper function for debugging) """
+        if self.root:
+            return(str(self.root))
+        

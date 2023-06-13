@@ -1,7 +1,8 @@
 # Imports
 import pytest
 import heapdict
-import data_structures as ds  
+import data_structures as ds 
+import binarytree 
 
 
 # Stack
@@ -167,3 +168,28 @@ def test_indexlist_popempty(): # 2p
     il.pop(0)
     with pytest.raises(IndexError):
         il.pop(0)
+
+
+# Binary search tree
+def test_bst_init():
+    bst1 = ds.BinarySearchTree()
+    assert bst1.root is None
+    node1 = binarytree.Node(3)
+    node2 = binarytree.Node(7)
+    bst2 = ds.BinarySearchTree(binarytree.Node(5,left=node1,right=node2))
+    assert bst2.root.value == 5
+    with pytest.raises(ValueError):
+        bst3 = ds.BinarySearchTree(binarytree.Node(5,left=node2,right=node1))  # Supplied node is not root of BST
+
+def test_insert():
+    numbers = [7,3,8,9,5,1,4]
+    bst = ds.BinarySearchTree()
+    for number in numbers:
+        bst.insert(number)
+    assert bst.root.value == 7
+    assert bst.root.left.value == 3
+    assert bst.root.left.left.value == 1
+    assert bst.root.left.right.value == 5
+    assert bst.root.left.right.left.value == 4
+    assert bst.root.right.value == 8
+    assert bst.root.right.right.value == 9
