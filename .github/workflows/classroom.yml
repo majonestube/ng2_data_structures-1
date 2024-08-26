@@ -1,0 +1,42 @@
+name: Autograding Tests
+'on':
+- push
+- repository_dispatch
+permissions:
+  checks: write
+  actions: read
+  contents: read
+jobs:
+  run-autograding-tests:
+    runs-on: ubuntu-latest
+    if: github.actor != 'github-classroom[bot]'
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+    - name: test_stack_init
+      id: test_stack_init
+      uses: classroom-resources/autograding-command-grader@v1
+      with:
+        test-name: test_stack_init
+        setup-command: sudo -H pip3 install pytest scikit-learn==1.3.0 numpy==1.25.2
+          scipy==1.11.1 matplotlib==3.7.2 binarytree==6.5.1
+        command: pytest data_structures_test.py::test_stack_init
+        timeout: 10
+        max-score: 1
+    - name: test_stack_push
+      id: test_stack_push
+      uses: classroom-resources/autograding-command-grader@v1
+      with:
+        test-name: test_stack_push
+        setup-command: sudo -H pip3 install pytest scikit-learn==1.3.0 numpy==1.25.2
+          scipy==1.11.1 matplotlib==3.7.2 binarytree==6.5.1
+        command: pytest data_structures_test.py::test_stack_push
+        timeout: 10
+        max-score: 2
+    - name: Autograding Reporter
+      uses: classroom-resources/autograding-grading-reporter@v1
+      env:
+        TEST_STACK_INIT_RESULTS: "${{steps.test_stack_init.outputs.result}}"
+        TEST_STACK_PUSH_RESULTS: "${{steps.test_stack_push.outputs.result}}"
+      with:
+        runners: test_stack_init,test_stack_push
