@@ -15,7 +15,7 @@ class Node:
         self.next = next
 
 
-# Add your implementations below, and commit and push the file to your repository
+# Add your implementations below
 
 
 class Stack:
