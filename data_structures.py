@@ -32,12 +32,12 @@ class Stack:
 
     def peek(self) -> Node | None:
         """Return data from node on top of stack, without changing stack"""
-        return self.head
+        return self.head.data
 
     def pop(self) -> Node:
         """Remove last added node and return its data"""
         if self.size == 0:
-            return None
+            raise IndexError
         else:
             removed = self.head 
             self.head = self.head.next
@@ -71,7 +71,7 @@ class Queue:
     def dequeue(self) -> Node:
         """Remove node from head of queue and return its data"""
         if self.size == 0:
-            return None 
+            raise IndexError
         else: 
             removed = self.head 
             self.head = removed.next 
@@ -112,7 +112,6 @@ class EmergencyRoomQueue:
         (name, priority) = self.queue.popitem()
         return name
 
-
 class BinarySearchTree:
     def __init__(self, root: binarytree.Node | None = None):
         """Initialize binary search tree
@@ -125,7 +124,11 @@ class BinarySearchTree:
         of a binary search tree (see property binarytree.Node.is_bst ). If not, raise
         ValueError.
         """
-        pass
+        if root: 
+            if root.is_bst == False:
+                raise ValueError
+        self.root = root 
+
 
     def insert(self, value: float | int) -> None:
         """Insert a new node into the tree (binarytree.Node object)
@@ -138,11 +141,37 @@ class BinarySearchTree:
         See https://docs.python.org/3/library/warnings.html#warnings.warn
         In the case of duplicate values, leave the tree unchanged.
         """
-        pass
+        new = binarytree.Node(value=value)
+        if self.root is None:
+            self.root = new 
+        else: 
+            placed = False 
+            current = self.root
+            while not placed: 
+                if current.value == new.value:
+                    warnings.warn("This value already excists in the tree.")
+                    placed = True
+                else:
+                    if new.value < current.value:
+                        if current.left == None:
+                            current.left = new
+                            placed = True 
+                        else: 
+                            current = current.left 
+                    else: 
+                        if current.right == None:
+                            current.right = new
+                            placed = True 
+                        else: 
+                            current = current.right 
+
+
+
 
     def __str__(self) -> str | None:
         """Return string representation of tree (helper function for debugging)"""
         if self.root is not None:
             return str(self.root)
+
 
 
