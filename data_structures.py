@@ -21,25 +21,36 @@ class Node:
 class Stack:
     def __init__(self):
         """Initialize stack object, with head attribute"""
-        pass
+        self.head = None
+        self.size = 0
 
     def push(self, data: Any) -> None:
         """Add new node with data to stack"""
-        pass
+        new = Node(data=data, next=self.head)
+        self.head = new 
+        self.size += 1
 
     def peek(self) -> Node | None:
         """Return data from node on top of stack, without changing stack"""
-        pass
+        return self.head
 
     def pop(self) -> Node:
         """Remove last added node and return its data"""
-        pass
+        if self.size == 0:
+            return None
+        else:
+            removed = self.head 
+            self.head = self.head.next
+            self.size -= 1
+            return removed.data
 
 
 class Queue:
     def __init__(self):
         """Initialize queue object with head and tail"""
-        pass
+        self.head = None
+        self.tail = None
+        self.size = 0
 
     def enqueue(self, data: Any) -> None:
         """Add node with data to queue"""
@@ -118,3 +129,5 @@ class BinarySearchTree:
         """Return string representation of tree (helper function for debugging)"""
         if self.root is not None:
             return str(self.root)
+
+
