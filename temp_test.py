@@ -4,6 +4,9 @@ from __future__ import annotations  # Needed for typing Node class
 import warnings
 from typing import Any
 
+import binarytree
+import heapdict
+
 
 
 # Node class (do not change)
@@ -15,45 +18,47 @@ class Node:
 
 # Add your implementations below
 
-class Queue:
+class EmergencyRoomQueue:
     def __init__(self):
-        """Initialize queue object with head and tail"""
-        self.head = None
-        self.tail = None
-        self.size = 0
+        """Initialize emergency room queue, use heapdict as property 'queue'"""
+        self.queue = heapdict.heapdict()
 
-    def enqueue(self, data: Any) -> None:
-        """Add node with data to queue"""
-        new = Node(data=data, next = None)
-        if self.size == 0:
-            self.head = self.tail = new
-        else:
-            temp = self.tail 
-            temp.next = new 
-            self.tail = new 
-        self.size += 1
+    def add_patient_with_priority(self, patient_name: str, priority: int) -> None:
+        """Add patient name and priority to queue
+
+        # Arguments:
+        patient_name:   String with patient name
+        priority:       Integer. Higher priority corresponds to lower-value number.
+        """
+        self.queue[patient_name] = priority
+
+    def update_patient_priority(self, patient_name: str, new_priority: int) -> None:
+        """Update the priority of a patient which is already in the queue
+
+        # Arguments:
+        patient_name:   String, name of patient in queue
+        new_priority:   Integer, updated priority for patient
+
+        """
+        self.queue[patient_name] = new_priority
+
+    def get_next_patient(self) -> str:
+        """Remove highest-priority patient from queue and return patient name
+
+        # Returns:
+        patient_name    String, name of patient with highest priority
+        """
+        (name, priority) = self.queue.popitem()
+        return name
 
 
-    def peek(self) -> Node | None:
-        """Return data from head of queue without changing the queue"""
-        return self.head.data
 
-    def dequeue(self) -> Node:
-        """Remove node from head of queue and return its data"""
-        if self.size == 0:
-            return None 
-        else: 
-            removed = self.head 
-            self.head = removed.next 
-            self.size -= 1
-            return removed.data
-
-queue = Queue()
-queue.enqueue("a")
-queue.enqueue("b")
-queue.enqueue("c")
-print(f"Fremste element i køen er {queue.head.data}")
-print(f"Dette kan vi også sjekke med peek(): {queue.peek()}")
-print(f"Bakerste element i køen er {queue.tail.data}")
-print(f'fjerner {queue.dequeue()}')
-print(f"Fremste er nå (): {queue.peek()}")
+erq = EmergencyRoomQueue()
+erq.add_patient_with_priority("Noora", 5)
+erq.add_patient_with_priority("Jacob", 2)
+erq.add_patient_with_priority("Kim", 6)
+print("The queue now looks like this:")
+for a, b in erq.queue.items():
+    print(f"{a}:{b}")
+print(erq.get_next_patient())
+print(list(erq.queue.keys()))
