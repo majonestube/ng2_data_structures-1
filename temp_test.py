@@ -15,41 +15,45 @@ class Node:
 
 # Add your implementations below
 
-
-class Stack:
+class Queue:
     def __init__(self):
-        """Initialize stack object, with head attribute"""
+        """Initialize queue object with head and tail"""
         self.head = None
+        self.tail = None
         self.size = 0
 
-    def push(self, data: Any) -> None:
-        """Add new node with data to stack"""
-        new = Node(data=data, next=self.head)
-        self.head = new 
+    def enqueue(self, data: Any) -> None:
+        """Add node with data to queue"""
+        new = Node(data=data, next = None)
+        if self.size == 0:
+            self.head = self.tail = new
+        else:
+            temp = self.tail 
+            temp.next = new 
+            self.tail = new 
         self.size += 1
 
-    def peek(self) -> Node | None:
-        """Return data from node on top of stack, without changing stack"""
-        return self.head
 
-    def pop(self) -> Node:
-        """Remove last added node and return its data"""
+    def peek(self) -> Node | None:
+        """Return data from head of queue without changing the queue"""
+        return self.head.data
+
+    def dequeue(self) -> Node:
+        """Remove node from head of queue and return its data"""
         if self.size == 0:
-            return None
-        else:
+            return None 
+        else: 
             removed = self.head 
-            self.head = self.head.next
+            self.head = removed.next 
             self.size -= 1
             return removed.data
 
-
-stack = Stack()
-stack.push("a")
-stack.push("b")
-stack.push("c")
-print(f"Øverste element i stacken har verdi {stack.head.data}")
-print(f"Dette kan vi også sjekke ved å bruke peek(): {stack.peek()}")
-print(stack.pop())
-print(stack.pop())
-print(stack.pop())
-print(stack.pop())
+queue = Queue()
+queue.enqueue("a")
+queue.enqueue("b")
+queue.enqueue("c")
+print(f"Fremste element i køen er {queue.head.data}")
+print(f"Dette kan vi også sjekke med peek(): {queue.peek()}")
+print(f"Bakerste element i køen er {queue.tail.data}")
+print(f'fjerner {queue.dequeue()}')
+print(f"Fremste er nå (): {queue.peek()}")

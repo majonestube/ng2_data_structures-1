@@ -54,15 +54,29 @@ class Queue:
 
     def enqueue(self, data: Any) -> None:
         """Add node with data to queue"""
-        pass
+        new = Node(data=data, next = None)
+        if self.size == 0:
+            self.head = self.tail = new
+        else:
+            temp = self.tail 
+            temp.next = new 
+            self.tail = new 
+        self.size += 1
+
 
     def peek(self) -> Node | None:
         """Return data from head of queue without changing the queue"""
-        pass
+        return self.head.data
 
     def dequeue(self) -> Node:
         """Remove node from head of queue and return its data"""
-        pass
+        if self.size == 0:
+            return None 
+        else: 
+            removed = self.head 
+            self.head = removed.next 
+            self.size -= 1
+            return removed.data
 
 
 class EmergencyRoomQueue:
